@@ -1,0 +1,173 @@
+{
+  "LOGIN": {
+    "TITLE": "Drivelytics",
+    "BUTTON": "login"
+  },
+
+  "MENU": {
+    "HELP": "Help",
+    "SETTINGS": "Settings",
+    "LOGOUT": "log out"
+  },
+
+  "NAV": {
+    "REALTIME": "Realtime",
+    "PAST": "Past",
+    "VEHICLES": "Vehicles",
+    "USERS": "Users",
+    "GEOFENCES": "Geofences",
+    "TROUBLES": "DTCs"
+  },
+
+  "CAL": {
+    "DAY": "DAY",
+    "WEEK": "WEEK",
+    "MONTH": "MONTH",
+    "MONTH_NAMES": "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec"
+  },
+
+  "REPORT": {
+    "LIST": "List",
+    "DAY": "Day",
+    "TOTAL_DRIVE_TIME": "Driving time",
+    "CONT_DRIVE_TIME": "Consecutive driving time",
+    "REST_TIME": "Break",
+    "DISTANCE": "Distance",
+    "FUEL": "KPL",
+    "AVG_FUEL": "Avg KPL",
+    "MAX_SPEED": "Max speed",
+    "DISTANCE_U": "Distance(km)",
+    "FUEL_U": "KPL(km/l)",
+    "MAX_SPEED_U": "Max speed(km/h)",
+    "DOWNLOAD": "Report"
+  },
+
+  "OBD": {
+    "TIME": "Date",
+    "SPEED": "Speed（km/h）",
+    "HEADING": "Heading (deg)",
+    "ALTITUDE": "Altitude (m)",
+    "ENGINE_RPM": "Engine RPM",
+    "ENGINE_LOAD": "Engine Load(%)",
+    "ENGINE_COOLANT": "Coolant Temperature(C)",
+    "FUEL_LEVEL": "Fuel Level(%)"
+  },
+
+  "DTC": {
+    "TITLE": "DTC",
+    "CATEGORY": {
+      "P": "Powertrain",
+      "B": "Body",
+      "C": "Chassis",
+      "U": "Network",
+      "OTHER": "Manufacture specific"
+    },
+    "FIXED": "Fixed"
+  },
+
+  "USER": {
+    "CREATE_NEW": "Add User",
+    "EDIT": "Edit User",
+    "DELETE": "Delete User",
+    "DELETE_MSG": " Delete this user",
+    "NAME": "Name",
+    "NAME_KANA": "Name(Kana)",
+    "ROLE": "Role",
+    "EMAIL": "Email",
+    "PROFILE_PHOTO": "Profile Photo",
+    "PASSWORD": "Password",
+    "PASSWORD_CONFIRM": "Password(Confirm)"
+  },
+
+  "VEHICLE": {
+    "CREATE_NEW": "Add Vehicle",
+    "EDIT": "Edit Vehicle",
+    "DELETE": "Delete Vehicle",
+    "DELETE_MSG": " Delete this vehicle",
+    "MODEL": "Model",
+    "VIN": "VIN",
+    "LICENSE_PLATE": "License Plate"
+  },
+
+  "GEOFENCE": {
+    "FENCE_LIST": "Geo-Fences",
+    "SUBSCRIBERS": "Subscribers",
+    "FENCE_NAME": "Fence Name",
+    "NOTIFY_MAIL": "Notification Email",
+    "DELETE_MSG": "Delete this fence"
+  },
+
+  "FORM": {
+    "PROMPT": {
+      "LAST_NAME": "Lastname",
+      "FIRST_NAME": "Firstname",
+      "LAST_NAME_KANA": "Lastname(Kana)",
+      "FIRST_NAME_KANA": "Firstname(Kana)",
+      "EMAIL": "Enter email address",
+      "PASSWORD": "Enter password",
+      "PASSWORD_CONFIRM": "Re-type your password for confirmation",
+
+      "DRIVER": "Enter driver's name",
+      "DEVICE_ID": "Enter device ID",
+      "MODEL": "Enter model name",
+      "VIN": "Enter VIN",
+      "LICENSE_PLATE": "ex ) California 6JIV337",
+      "VIN_P": "Vehicle Identification Number (17 characters)",
+      "FENCE_NAME": "Enter fence name",
+      "PLACE_NAME": "Enter address",
+      "MODEL_EX": "ex ) Acura Integra GS-R",
+      "VIN_EX": "ex ) 1HGCM82633A004352"
+    },
+    "ERROR": {
+      "EMAIL_INVALID": "Email address entered is invalid",
+      "PASSWORD_UNMATCH": "Passwords do not match",
+      "HANKAKU_ONLY": "Only enter digits and alphabets",
+      "HANKAKU_NOSPACE": "Do not enter a space",
+      "VIN": "Enter only alphabets and digits"
+    },
+    "DELETE_WARNING": "※Once deleted, there's no way to recover."
+  },
+
+  "MODAL": {
+    "TITLE": {
+      "CONFIRM": "Confirm",
+      "VIDEO": "Video footages on "
+    },
+    "DELETE_CONFIRM_MSG": "Are you sure to delete this? (this operation can not be undone)"
+  },
+
+  "VIDEO": {
+    "SHOT_DATE": "Shot Date:",
+    "VIDEO_LENGTH": "Video Length:"
+  },
+
+  "TIME_FORMAT": {
+    "Y_M_D": "MMM d, yyyy",
+    "Y_M": "MMM, yyyy",
+    "M_D_H_M": "MMM d H:mm",
+    "M_D": "MMM d",
+    "Y": "yyyy",
+    "M": "MMM",
+    "D": "d",
+    "HOUR_SUFFIX": "h",
+    "MIN_SUFFIX": "m",
+    "HALF_HOUR": "h:30m"
+  },
+
+  "SERVER_ERROR": {
+    "LOGIN": {
+      "INVALID_CREDENTIALS": "Login failed. Please check your credentials and try again.",
+      "ERROR": "There was a problem with authenticating: {{error}}."
+    }
+  },
+
+  "CREATE_NEW": "Add",
+  "OK": "OK",
+  "CANCEL": "Cancel",
+  "CLOSE": "Close",
+  "DATETIME": "Date",
+  "DRIVER": "Driver",
+  "DEVICE_ID": "Device ID",
+  "NOT_SELECTED": "Unassigned",
+  "SEARCH": "Search"
+}

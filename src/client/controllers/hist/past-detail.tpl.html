@@ -1,0 +1,134 @@
+<div ng-include="'hist/calendar.tpl.html'"></div>
+<!--  user data C=right9 ++++++++++  -->
+<div ng-controller="PastDetailCtrl" class="col-xs-9 pad_right0">
+  <!--  user data ++++++++++ -->
+  <!--  title navigation  -->
+  <div ng-show="isSuperUser()">
+    <ul class="user_data_navi">
+      <li>
+        <a href="/past?since={{params.since}}&until={{params.until}}&ctype={{params.ctype}}" translate>REPORT.LIST</a>
+      </li>
+      <li>
+        <a href="/past/{{userId}}/?since={{params.since}}&until={{params.until}}&ctype={{params.ctype}}">{{user.last_name + user.first_name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!--  user data body -->
+  <div class="user_data_body">
+
+		<div class="loading_bar"></div>
+
+    <!--
+		<button type="button" class="btn btn-default" ng-show="params.ctype === 'd' && showVideoIcon" ng-click="showVideo()">
+			<span class="glyphicon glyphicon-film"></span> Play
+		</button>
+		-->
+
+    <!--  user data head  -->
+    <div class="user_data_h_date">
+      <!--  date  -->
+      <h2>
+        {{(getDateFromParam(params.since) | date:(getDateFormatForCType(params.ctype) | translate))}}
+        {{params.ctype === 'w' ? (' ~ ' + (getDateFromParam(params.until) | date:('TIME_FORMAT.D' | translate))) : ''}}
+      </h2>
+      <!--  DAY , WEEK , MONTH  -->
+      <h3>{{getLabelForCType(params.ctype)}}</h3>
+    </div>
+    <ul class="user_data_sum_time">
+      <li>
+        <h4 translate>REPORT.TOTAL_DRIVE_TIME</h4>
+        <p>{{tripData.ope_t | formatTime}}</p>
+      </li>
+      <li>
+        <h4 translate>REPORT.CONT_DRIVE_TIME</h4>
+        <p>{{tripData.c_ope_t | formatTime}}</p>
+      </li>
+      <li>
+        <h4 translate>REPORT.AVG_FUEL</h4>
+        <p>{{tripData.fe | toFixed}} km/l</p>
+      </li>
+      <li>
+        <h4 translate>REPORT.MAX_SPEED</h4>
+        <p>{{tripData.msp || '-'}} km/h</p>
+      </li>
+    </ul>
+    <!-- /end_ user data head -->
+
+    <!-- user data map -->
+    <div class="user_data_map_container">
+	    <div class="user_data_map" ui-map="map.pastMap" ui-options="gmapOptions" ng-class="{expand_map: mapExpanded}"></div>
+	    <!-- map expand/collapse button -->
+      <button type="button" class="btn btn_map_expand" btn-checkbox ng-model="mapExpanded">
+        <span ng-hide="mapExpanded">Expand Map</span>
+        <span ng-show="mapExpanded">Collapse Map</span>
+      </button>
+    </div>
+    <!-- trip markers -->
+    <div ng-repeat="marker in markers" ui-map-marker="markers[$index]"
+      ui-event="{'map-click': 'openInfoWindow(marker)'}"></div>
+    <!-- harsh markers -->
+    <div ng-repeat="marker in harshMarkers" ui-map-marker="harshMarkers[$index]"
+      ui-event="{'map-click': 'openInfoWindow(marker)'}"></div>
+
+    <!-- user data map popup -->
+    <div ui-map-info-window="map.detailInfoWindow">
+      <div ng-model="infoWindow">
+        <ng-include src="'hist/map-infowindow.tpl.html'"></ng-include>
+      </div>
+    </div>
+
+    <!-- user data list -->
+    <div ng-switch="params.ctype">
+      <!-- timeline -->
+      <ul class="user_dlist_time" ng-switch-when="d">
+        <li ng-repeat="address in addresses" ng-class="{even_line: $even}" class="drive_point">
+          <dl>
+            <!-- marker -->
+            <dt><img ng-src="{{address.alphabetImg}}" ng-click="panTo(address.pos)"/></dt>
+            <dd class="value_each">
+              <ul class="user_dlist_time_body">
+                <!-- time -->
+                <li class="dlist_time_time">{{address.date}}</li>
+                <!-- adress -->
+                <li class="dlist_time_adress">{{address.addr}}</li>
+              </ul>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+      <!-- list -->
+      <div class="user_data_list_table" ng-switch-default>
+        <table class="table table_base_style">
+          <thead>
+          <tr>
+            <th translate>REPORT.DAY</th>
+            <th translate>REPORT.TOTAL_DRIVE_TIME</th>
+            <th translate>REPORT.CONT_DRIVE_TIME</th>
+            <th translate>REPORT.REST_TIME</th>
+            <th translate>REPORT.DISTANCE</th>
+            <th translate>REPORT.FUEL</th>
+            <th translate>REPORT.MAX_SPEED</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="summary in summaryList" ng-click="selectSummary(summary)">
+            <td>{{summary.time | date:('TIME_FORMAT.D' | translate)}}</td>
+            <td>{{summary.ope_t | formatTime}}</td>
+            <td>{{summary.c_ope_t | formatTime}}</td>
+            <td>{{summary.break_t | formatTime}}</td>
+            <td>{{summary.odo | toFixed}}</td>
+            <td>{{summary.fe | toFixed}}</td>
+            <td>{{summary.msp || '-'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- /end_ user data list -->
+
+  </div>
+  <!--  /end_user data body  -->
+
+</div>
+<!-- /end_user data ++++++++++ -->

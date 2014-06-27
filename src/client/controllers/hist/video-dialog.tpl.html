@@ -1,0 +1,61 @@
+<div class="modal-header">
+	<h3>{{'MODAL.TITLE.VIDEO' | translate}}{{(shotDate | date:('TIME_FORMAT.M_D' | translate))}}</h3>
+</div>
+<div class="modal-body">
+	<videogular vg-width="config.width" vg-height="config.height" vg-theme="config.theme.url" vg-autoplay="config.autoPlay"
+				vg-responsive="config.responsive" vg-player-ready="onPlayerReady" vg-complete="onCompleteVideo" vg-update-time="onUpdateTime">
+		<video class='videoPlayer' preload='metadata' ng-src='{{media.url}}'>
+		</video>
+		<vg-controls vg-autohide="config.autoHide" vg-autohide-time="config.autoHideTime" style="height: 35px;">
+			<vg-play-pause-button vg-play-icon="config.theme.playIcon" vg-pause-icon="config.theme.pauseIcon"></vg-play-pause-button>
+			<vg-timeDisplay>{{currentTime}}</vg-timeDisplay>
+			<vg-scrubBar>
+				<vg-scrubbarcurrenttime></vg-scrubbarcurrenttime>
+			</vg-scrubBar>
+			<vg-timeDisplay>{{totalTime}}</vg-timeDisplay>
+			<vg-volume>
+				<vg-mutebutton
+						vg-volume-level-3-icon="config.theme.volumeLevel3Icon"
+						vg-volume-level-2-icon="config.theme.volumeLevel2Icon"
+						vg-volume-level-1-icon="config.theme.volumeLevel1Icon"
+						vg-volume-level-0-icon="config.theme.volumeLevel0Icon"
+						vg-mute-icon="config.theme.muteIcon">
+				</vg-mutebutton>
+				<vg-volumebar></vg-volumebar>
+			</vg-volume>
+		</vg-controls>
+	</videogular>
+	<div class="row">
+	<div class="col-xs-6">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>#</th>
+				<th translate>VIDEO.SHOT_DATE</th>
+				<th translate>VIDEO.VIDEO_LENGTH</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="video in videos" ng-class="{active: $index === curIndex}" ng-click="playVideo($index)">
+				<td>{{$index + 1}}</td>
+				<td>{{(video.start_time | date:('TIME_FORMAT.M_D_H_M' | translate))}}</td>
+				<td>{{formatVideoDuration(video.movie_length)}}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-6">
+		<div ui-map="gmap.map" ui-options="gmapOptions" class="video_data_map"></div>
+		<div ui-map-marker="marker" ui-event="{'map-click': 'openInfoWindow(marker)'}"></div>
+		<div ui-map-info-window="gmap.infoWindow">
+			<div class="rear_map_pop" ng-model="infoWindow">
+				<ng-include src="'hist/video-map-infowindow.tpl.html'"></ng-include>
+			</div>
+		</div>
+		<div ui-map-polyline="polyline"></div>
+	</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn_cancel" ng-click="close()" translate>CLOSE</button>
+</div>

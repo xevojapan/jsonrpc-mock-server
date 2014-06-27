@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html ng-app="admin">
+<head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Admin data editor.</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+  <style type="text/css">
+    .ace_editor { height: 600px; }
+    .footer {
+      display: inline-block;
+      margin: 10px 0;
+    }
+    div.alert {
+      display: inline-block;
+      width: 50%;
+      margin-bottom: 0px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Admin Page</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <ul id="categoryTab" class="nav nav-pills nav-stacked" >
+        <li class="active"><a href="#tab-pane-raw-data" data-toggle="pill">Raw Data</a></li>
+        <li><a href="#tab-pane-user-manage" data-toggle="pill">User Manage</a></li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="tab-content">
+
+        <article class="tab-pane active" id="tab-pane-raw-data" ng-controller="TabController">
+          <tabset>
+            <tab ng-repeat="tab in tabs" heading="{{ tab.title }}" ng-controller="EditController" active="tab.active">
+              <div ui-ace="{ mode: 'json', theme: 'chrome', onLoad: aceLoaded, onChange: aceChanged }" ng-model="text"></div>
+
+              <div class="footer">
+                <button type="button" class="btn btn-info" ng-click="load()"><span class="fa fa-refresh"></span> Reload</button>
+                <button type="button" class="btn btn-success" ng-click="save()" ng-disabled="!changed || isError" data-ng-hide="tab.readonly"><i class="fa fa-file-text"></i> Save</button>
+                <i class="fa fa-spin fa-spinner" ng-show="loading"></i>
+              </div>
+              <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
+            </tab>
+          </tabset>
+        </article>
+
+        <article class="tab-pane" id="tab-pane-user-manage">
+          <tabset>
+            <tab heading="register" active="true" ng-controller="UserController">
+
+              <h1>User Register Form</h1>
+              <form class="form" role="form" ng-submit="register()">
+                <div class="form-group">
+                  <label for="registerEmail" class="control-label">Email</label>
+                  <input type="email" class="form-control" id="registerEmail" name="email" ng-model="email" placeholder="Email" required="true" />
+                </div>
+                <div class="form-group">
+                  <label for="registerUsername" class="control-label">Username</label>
+                  <input type="text" class="form-control" id="registerUsername" name="username" ng-model="username" placeholder="Username" required="true" />
+                </div>
+                <div class="form-group">
+                  <label for="registerPassword" class="control-label">Password</label>
+                  <input type="password" class="form-control" id="registerPassword" name="password" ng-model="password" placeholder="Password" required="true" />
+                  <span class="help-block">Password require more 8 length.</span>
+                </div>
+                <input type="submit" class="btn btn-default" value="Register" />
+                <i class="fa fa-spin fa-spinner" ng-show="running"></i>
+                <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
+              </form>
+
+            </tab>
+          </tabset>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/ace/ace.js"></script>
+<script src="/static/js/angular.min.js"></script>
+<script type="text/javascript">
+(function() {
+
+  var app = angular.module('admin', [
+    'ui.ace',
+    'ui.bootstrap'
+  ]);
+
+  app.controller('TabController', ['$scope', function($scope) {
+    $scope.tabs = [
+      { title: 'User', path: '/api/admin/usermaster' },
+      { title: 'AuthToken', path: '/api/admin/authtoken' },
+      { title: 'Category', path: '/api/admin/category' },
+      { title: 'AppInfo', path: '/api/admin/appinfo', active: true },
+      { title: 'UserApp', path: '/api/admin/userapp' },
+      { title: 'News', path: '/api/admin/newsdata' }
+    ];
+  }]);
+
+  app.controller('AlertBaseController', ['$scope', '$timeout', function($scope, $timeout) {
+    $scope.alerts = [];
+
+    $scope.addAlert = function(type, msg) {
+      var alert = {
+        type: type,
+        msg: msg
+      };
+      $scope.alerts.push(alert);
+      $timeout(function() {
+        $scope.alerts.splice($scope.alerts.indexOf(alert), 1);
+      }, 3000);
+    };
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    };
+  }]);
+
+  app.controller('EditController', ['$scope', '$http', '$timeout', '$controller', function($scope, $http, $timeout, $controller) {
+    $scope.service = createService($http, $scope.tab.path);
+    angular.extend(this, $controller('AlertBaseController', {$scope: $scope}));
+
+    $scope.changed = false;
+    $scope.isError = false;
+    $scope.loading = false;
+
+    $scope.aceChanged = function() {
+      $scope.changed = true;
+    };
+    $scope.clearChanged = function() {
+      $scope.changed = false;
+    }
+
+    $scope.aceLoaded = function(editor) {
+      $scope.changeEditorSize();
+
+      var session = editor.getSession();
+      session.setUndoManager(new ace.UndoManager());
+      session.on('changeAnnotation', function() {
+        safeApply($scope, function() {
+          $scope.isError = session.getAnnotations().length > 0;
+        });
+      });
+    }
+    $scope.changeEditorSize = function() {
+      var $editor = $('.ace_editor');
+      if ($editor.height() !== 600) {
+        $editor.height($editor.height());
+        return;
+      }
+      var $content = $('.tab-content');
+      var full = $('body').height();
+      var header = $content.offset().top;
+      var footer = $content.height() - $editor.height();
+      $editor.height(full - header - footer);
+      console.log('editor height=' + $editor.height());
+    }
+
+    $scope.text = '';
+    $scope.save = function() {
+      $scope.loading = true;
+      $scope.service.save($scope.text, function() {
+        $scope.loading = false;
+        $scope.addAlert('success', 'success to save data.');
+        $scope.clearChanged();
+      }, function() {
+        $scope.loading = false;
+        $scope.addAlert('danger', 'fail to save data.');
+      });
+    };
+
+    $scope.load = function() {
+      $scope.loading = true;
+      $scope.service.query(function(text) {
+        $scope.loading = false;
+        //console.log('query success.');
+        $scope.text = text;
+        $scope.clearChanged();
+      }, function() {
+        $scope.loading = false;
+        $scope.addAlert('danger', 'fail to query data.');
+      });
+    };
+    $scope.load();
+  }]);
+
+  app.controller('UserController', ['$scope', '$http', '$timeout', '$controller', function($scope, $http, $timeout, $controller) {
+    angular.extend(this, $controller('AlertBaseController', {$scope: $scope}));
+
+    $scope.email = "";
+    $scope.username = "";
+    $scope.password = "";
+
+    $scope.running = false;
+
+    $scope.register = function() {
+      console.log('register');
+      $scope.running = true;
+      httpWrap($http.post('/auth/register', { email: $scope.email, password: $scope.password, username: $scope.username }),
+          function() {
+            $scope.running = false;
+            $scope.addAlert('success', 'success to register data.');
+            clearForm();
+          },
+          function() {
+            $scope.running = false;
+            $scope.addAlert('danger', 'fail to register data.');
+          });
+    };
+
+    function clearForm() {
+      $scope.email = "";
+      $scope.username = "";
+      $scope.password = "";
+    }
+
+  }]);
+
+  function createService(http, path) {
+    return {
+      query: function(callback, errorCallback) {
+        return httpWrap(http.get(path), callback, errorCallback);
+      },
+      save: function(text, callback, errorCallback) {
+        var data = JSON.parse(text);
+        if (angular.isArray(data)) {
+          data = { array: data };
+        }
+        return httpWrap(http.post(path, data, { params: {replace:true} }), callback, errorCallback);
+      }
+    }
+  }
+
+  function httpWrap(promise, callback, errorCallback) {
+    return promise.then(function(response) {
+      var data = angular.toJson(response.data, true);
+      callback(data);
+      return data;
+    }, function(response) {
+      if (errorCallback) errorCallback(response.status, response.data);
+    });
+  }
+
+  function safeApply(scope, fn) {
+    (scope.$$phase || scope.$root.$$phase) ? fn() : scope.$apply(fn);
+  }
+}());
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+angular:
+  - concat:drivelytics
+  - ngmin
+  - ngtemplates
+
+build:
+  - typescript
+  - angular
+  - concat
+  - uglify
+  - compass:min
+  - cssmin
+  - copy
+
+release:
+  - clean
+  - build
+
+test:
+  - clean
+  - typescript
+  - env:test
+  - mochacli
+
+default:
+  - build
+

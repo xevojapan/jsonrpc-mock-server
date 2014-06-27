@@ -1,0 +1,57 @@
+{
+  "name": "json-rpc2-mock-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/server/app.js",
+  "scripts": {
+    "start": "NODE_ENV=production node lib/server/app.js",
+    "test": "grunt test"
+  },
+  "directories": {
+    "test": "test/"
+  },
+  "keywords": [
+    "typescript",
+    "AngularJS",
+    "json-rpc2"
+  ],
+  "author": "UIE K.K.",
+  "license": "MIT",
+  "dependencies": {
+    "asyncblock": "^2.1.20",
+    "body-parser": "^1.4.3",
+    "compression": "^1.0.8",
+    "config": "^0.4.36",
+    "connect-mongo": "^0.4.1",
+    "express": "^4.4.5",
+    "express-session": "^1.5.2",
+    "log4js": "^0.6.14",
+    "method-override": "^2.0.2",
+    "moment": "^2.7.0",
+    "mongoose": "^3.8.12",
+    "multitransport-jsonrpc": "git://github.com/horiuchi/multitransport-jsonrpc",
+    "serve-static": "^1.2.3",
+    "source-map-support": "^0.2.6",
+    "static-favicon": "^2.0.0-alpha"
+  },
+  "devDependencies": {
+    "espower-loader": "^0.7.1",
+    "grunt": "^0.4.5",
+    "grunt-angular-templates": "^0.5.5",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-compass": "^0.9.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-env": "^0.4.1",
+    "grunt-mocha-cli": "^1.9.0",
+    "grunt-ngmin": "0.0.3",
+    "grunt-typescript": "^0.3.7",
+    "intelli-espower-loader": "^0.1.0",
+    "load-grunt-config": "^0.10.0",
+    "power-assert": "^0.7.2",
+    "supertest": "^0.13.0"
+  }
+}

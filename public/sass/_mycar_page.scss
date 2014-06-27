@@ -1,0 +1,589 @@
+
+@charset "utf-8";
+
+
+/* =============================
+
+	Basic	
+	
+============================= */
+
+
+/* Header ============================= */
+header.header_mycar {
+	background: rgba(#333333, 1.0);
+}
+
+
+/* main  ============================= */
+.main {
+	min-width: 800px;
+}
+
+/* contents navigation  ============================= */
+.cnavi {
+	@include cnavi-base;
+	ul.c_navi {
+		width: 420px;
+		@include block_center;
+		//border: #ff0000 solid 1px; //debug
+		@include cnavi;
+	}
+}
+
+
+/* carinfo area ============================= */
+.carinfo_area {
+	width: 100%;
+	position: relative;
+	h1 {
+		display: block;
+		width: 100%;
+		background: rgba(#ffffff, 0.4);
+		@include fontsize-34;
+		font-weight: 100;
+		position: absolute;
+		height: 84px;
+		padding: 24px 0 0 40px;
+		z-index: 300;
+	}
+	.carinfo_map {
+		height: 444px;
+		width: 100%;
+		position: relative;
+		background: rgba(#b3b3b3, 1.0);
+		/* Sample map style */
+		//#map_canvas { position: absolute; text-align: center;} //sample
+	}
+	.dashboard_area {
+		height: 420px;
+		background: rgba(#fff, 1.0);
+		padding-top: 36px;
+		//border: #ff0000 solid 1px; //debug
+		.dashboard {
+			width: 900px;
+			clear: both;
+			overflow: hidden;
+			@include block_center;
+			padding: 8px 0 16px 0;
+			text-align: center;
+			//border: #0e00ff solid 1px; //debug
+			.chart_assets {
+				display: inline-block;
+				float: left;
+				margin: 0 8px 0 8px;
+				//border: #ff0000 solid 1px; //debug
+				.value_chart {
+					text-align: center;
+				}
+				h3 {
+					@include fontsize-21;
+					@include grey-normal;
+					text-align: center;
+					padding: 4px 0 8px 0;
+				}
+				h4 {
+					@include fontsize-34;
+					@include grey-middle;
+					display: inline;
+					//border: #ff0000 solid 1px; //debug
+				}
+				.btn_viewmore_small {
+					display: block;
+					@include block_center;
+					@include r-btn-s-grey;
+				}
+				
+			}
+			.fuel {width: 192px;}
+			.battery {width: 192px;}
+			.economy {width: 192px;}
+			.mileage {width: 252px;}
+		}
+	}
+}
+
+.chart_square {
+	width: 144px;
+	@include block_center;
+	padding: 8px 0 8px 0;
+	//border: #ff0000 solid 1px; //debug
+	img {
+		width: 144px;
+		height: 144px;
+	}
+}
+
+.chart_rectangle {
+	width: 252px;
+	@include block_center;
+	padding: 8px 0 16px 0;
+	//border: #ff0000 solid 1px; //debug
+	img {
+		width: 252px;
+		height: 144px;
+	}
+}
+
+.memo_chart {
+	@include fontsize-13;
+	@include grey-normal;
+	padding: 8px 0 16px 0;
+}
+
+.deCarta-Pin {
+  img {
+    width: 72px !important;
+    height: 72px !important;
+	}
+}
+
+/* Additinal style for decarta map */
+.deCarta-Map-V3 {
+	//width: 100% !important;
+	//height: 100% !important;
+}
+
+
+/* live area ============================= */
+.live_area {
+	width: 100%;
+	height: 516px;
+	background-image: url(../img/bg_live.png);
+	@include background-size(cover);
+	background-position: 50% 0%;
+	h1 {
+		@include white-normal;
+		display: block;
+		width: 100%;
+		@include fontsize-34;
+		font-weight: 100;
+		height: 84px;
+		padding: 24px 0 0 40px;
+		z-index: 300;
+	}
+	.live {
+		width: 840px;
+		@include block_center;
+		clear: both;
+		overflow: hidden;
+		//border: #ff0000 solid 1px; //debug
+	}
+	.graphical_info {
+		width: 408px;
+		height: 360px;
+		float: left;
+		background-image: url(../img/l_carshape_base.png);
+		@include background-size(408px 360px);
+		position: relative;
+		//border: #ff0000 solid 1px; //debug
+	}
+	.status_info {
+		width: 368px;
+		float: left;
+		padding: 24px 8px 8px 24px;
+		h4 {
+			@include fontsize-21;
+			@include white-normal;
+			padding-bottom: 8px;
+		}
+		.table {
+			@include fontsize-14;
+			@include white-normal;
+			tr {
+				@include transition-timing-function(ease-in);
+			}
+			tr:hover {
+				-webkit-transition: all 0.3s ease;
+				//@include transition-timing-function(ease-in);
+				cursor: pointer;
+			}
+			td {
+				border-top: none;
+				border-bottom: #1c1c1c dotted 1px;
+				line-height: 200%;
+				&.right_line {
+					text-align: right;
+				}
+				.fa-exclamation-circle {
+					padding-left: 8px;
+				}
+			}
+			.trouble {
+				@include red-important;
+			}
+		}
+	}
+}
+
+.parts_car {
+	list-style: none;
+	position: absolute;
+	a:hover {
+		cursor: pointer;
+	}
+}
+
+.headlight_f_l {
+	width: 106px;
+	height: 33px;
+	left: 150px;
+	top: 38px;
+	img {
+		width: 106px;
+		height: 33px;
+	}
+}
+
+.door_f_l {
+	width: 38px;
+	height: 84px;
+	left: 119px;
+	top: 113px;
+	img {
+		width: 38px;
+		height: 84px;
+	}
+}
+.door_f_r {
+	width: 38px;
+	height: 84px;
+	left: 250px;
+	top: 113px;
+	img {
+		width: 38px;
+		height: 84px;
+	}
+}
+.door_r_l {
+	width: 38px;
+	height: 84px;
+	left: 119px;
+	top: 192px;
+	img {
+		width: 38px;
+		height: 66px;
+	}
+}
+.door_r_r {
+	width: 38px;
+	height: 84px;
+	left: 250px;
+	top: 192px;
+	img {
+		width: 38px;
+		height: 66px;
+	}
+}
+
+.door_hatch {
+	width: 86px;
+	height: 55px;
+	left: 160px;
+	top: 277px;
+	img {
+		width: 86px;
+		height: 55px;
+	}
+}
+.window_f_l {
+	width: 63px;
+	height: 35px;
+	left: 22px;
+	top: 124px;
+	img {
+		width: 63px;
+		height: 35px;
+	}
+}
+.window_f_r {
+	width: 63px;
+	height: 35px;
+	left: 324px;
+	top: 124px;
+	img {
+		width: 63px;
+		height: 35px;
+	}
+}
+.window_r_l {
+	width: 63px;
+	height: 35px;
+	left: 22px;
+	top: 203px;
+	img {
+		width: 63px;
+		height: 35px;
+	}
+}
+.window_r_r {
+	width: 63px;
+	height: 35px;
+	left: 324px;
+	top: 203px;
+	img {
+		width: 63px;
+		height: 35px;
+	}
+}
+
+
+/* health area ============================= */
+.health_area {
+	width: 100%;
+	height: 590px;
+	background-color: white;
+	background-image: url(../img/bg_health.png);
+	@include background-size(564px 590px);
+	background-position: right center;
+	background-repeat: no-repeat;
+	h1 {
+		@include grey-normal;
+		display: block;
+		width: 100%;
+		@include fontsize-34;
+		font-weight: 100;
+		height: 84px;
+		padding: 24px 0 0 40px;
+		z-index: 300;
+	}
+	.health {
+		width: 840px;
+		@include block_center;
+	}
+	.health_table {
+		width: 372px;
+		@include fontsize-14;
+		@include grey-normal;
+		//border: #ff0000 solid 1px; //debug
+		tr,td { height: 44px; background: none;}
+		.status_bad .name_status {
+			@include red-important;
+		}
+		.btn-default {
+			@include grey-normal;
+		}
+		.status_notbad .name_status {
+			@include yellow-important;
+		}
+		.status_good .name_status {
+			@include green-important;
+		}
+		tr:hover {
+			background: rgba(#000, 0.05);
+			background-color: none;
+			@include transition-duration(0.2s);
+			cursor: pointer;
+		}
+		td {
+			border-top: none;
+			border-bottom: #b5b5b5 dotted 1px;
+			line-height: 28px;
+			vertical-align: middle;
+			//border: #ff0000 solid 1px; //debug
+			&.name_point {
+				//padding-left: 16px;
+			}
+			&.image_table {
+				padding: 0 0 0 0;
+				text-align: center;
+				vertical-align: middle;
+			}
+		}
+		img {
+			width: 36px;
+			height: 36px;
+			margin-top: 4px;
+			margin: 4px 0 0 0;
+		}
+	}
+}
+
+/* Popover contents */
+.popover {
+	margin-left: 114px;
+	padding-bottom: 8px;
+	.popover-content {
+		padding-top: 16px;
+	}
+}
+.problem_content {
+	@include fontsize-15;
+	@include grey-important;
+	padding: 2px 0 4px 0;
+}
+.result_value_bad {
+	@include fontsize-13;
+	@include red-important;
+	padding: 2px 0 4px 0;
+}
+.result_value_good {
+	@include fontsize-13;
+	@include grey-bit;
+	padding: 2px 0 4px 0;
+}
+
+.problem_date {
+	@include fontsize-13;
+	@include grey-normal;
+	padding: 2px 0 8px 0;
+}
+.manual_link {
+	@include fontsize-13;
+	a {
+		@include blue-normal;
+		@include blue_text_anchor;
+		i { padding-left: 8px;}
+	}
+}
+
+/* manual area ============================= */
+.manual_area {
+	width: 100%;
+	//height: 684px;
+	@include background-image(linear-gradient(#e5e5e5 30%,  #ffffff));
+	clear: both;
+	overflow: hidden;
+	border-top: #cccccc solid 1px;
+	position: relative;
+	h1 {
+		@include grey-bit;
+		display: block;
+		width: 100%;
+		@include fontsize-34;
+		font-weight: 100;
+		height: 84px;
+		padding: 24px 0 0 40px;
+		z-index: 300;
+	}
+	.manual_wrapper {
+		width: 100%;
+		height: 100%;
+		clear: both;
+		overflow: hidden;
+		background-image: url(../img/bg_linedrawing.png);
+		background-repeat: no-repeat;
+		@include background-size(cover);
+		background-position: 50% 50%;
+		padding-bottom: 36px;
+		//border: #ff0000 solid 1px; //debug
+	}
+	
+	.manual {
+		width: 840px;
+		@include block_center;
+		.manual_header {
+			height: 90px;
+			border-bottom: #bdc3c7 dotted 2px;
+			//border: #ff0000 solid 1px; //debug
+			h3 {
+				@include fontsize-21;
+				color: #333333;
+				display: inline-block;
+				float: left;
+				padding: 35px 0 0 12px;
+				//border: #ff0000 solid 1px; //debug
+			}
+			form {
+				width: 320px;
+				height: 84px;
+				float: right;
+				position: relative;
+				padding: 24px 0 0 0;
+				//border: #ff0000 solid 1px; //debug
+				input.form-control {
+					@include input_form;
+				}
+				span {
+	    			@include search_icon;
+				}
+			}
+		}
+		.left_side {
+			width: 400px;
+			float: left;
+			background: none;
+			padding: 8px;
+			//border: #ff0000 solid 1px; //debug
+		}
+		.right_side {
+			width: 400px;
+			float: left;
+			background: none;
+			padding: 8px;
+			//border: #ff0000 solid 1px; //debug
+		}
+	}
+	.manual_contents {
+		padding-top: 16px;
+		li {
+			background-image: url(../img/icon_pdf.png);
+			background-repeat: no-repeat;
+			@include background-size(22px 22px);
+			background-position: 0 center;
+			line-height: 200%;
+			//border: #ff0000 solid 1px; //debug
+			a {
+				@include fontsize-14;
+				@include grey-bit;
+				@include grey_bit_text_anchor;
+				padding-left: 28px;
+			}
+		}
+	}
+}
+
+
+/* Scroll to top ============================= */
+
+/* core */
+/*
+Back to top button 
+*/
+#back-top {
+	position: fixed;
+	bottom: 22px;
+	right: 22px
+	
+}
+#back-top a {
+	width: 40px;
+	height: 40px;
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #bbb;
+	/* background color transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#back-top a:hover {
+	color: #000;
+}
+/* arrow icon (span tag) */
+#back-top span {
+	width: 40px;
+	height: 40px;
+	display: block;
+	background-image: url(../img/btn_back_top.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	@include background-size(40px 40px);
+	
+	/* rounded corners */
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/* background color transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#back-top a:hover span {
+	background-image: url(../img/btn_back_top_hover.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	@include background-size(40px 40px);
+}

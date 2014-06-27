@@ -1,0 +1,88 @@
+<!-- upper main photo area -->
+<section class="top_main_container">
+</section>
+<!-- upper main photo area -->
+
+<!-- bottom info area -->
+<div class="bottom_info_area">
+  <div class="bottom_info">
+    <div class="car_info">
+      <div class="dashboard">
+        <h3>Car Info</h3>
+        <p class="latest_update">Last updated: {{ top.today | date:'MMM d, y H:mm' }}</p>
+        <div class="remaining_fuel category_dashboard">
+          <div class="chart_area"><img src="/static/img/chart_remain.png" alt="chart_sample"></div>
+          <div class="value_area">
+            <h4>Remaining Fuel</h4>
+            <span class="value_dashboard">25.20</span>
+            <span class="unit_dashboard">gal</span>
+          </div>
+        </div>
+        <div class="fuel_economy category_dashboard">
+          <div class="chart_area"><img src="/static/img/chart_economy.png" alt="chart_sample"></div>
+          <div class="value_area">
+            <h4>Fuel Economy</h4>
+            <span class="value_dashboard">8.10</span>
+            <span class="unit_dashboard">mile/gal</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Map here -->
+      <div id="top_map" class="current_location" data-ui-decarta="top.map" data-ui-options="top.mapOptions"></div>
+
+    </div>
+    <div class="information">
+      <h3>Information</h3>
+      <article class="butn_more_info"><a>View all<i class="fa fa-angle-right"></i></a></article>
+      <ul class="info_list">
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">The all-new UIEAUTO CC500 luxury compact crossover will... </span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">At this year’s Milan Design Week, CC400 is hosting “UIEAUTO...</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">The 2014 GS 350 was named among Edmunds.com’s “Top...</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">DETROIT(April 23, 2014) – Did you shave your head in the ...</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">Lorem Ipsum is simply dummy Lorem Ipsum is simply.</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">Lorem Ipsum is simply dummy Lorem Ipsum is simply.</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="info_date">{{ top.today | date }}</span>
+            <span class="info_article">Lorem Ipsum is simply dummy Lorem Ipsum is simply.</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright_toppage_container">
+	  <p class="copyright_toppage">&copy; UIE CloudConnect All rights Reserved</p>
+  </div>
+</div>
+<!-- bottom info area -->

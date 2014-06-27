@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-ng-app="bws">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>UIE CloudConnect</title>
+  <meta name="description" content="">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/decarta.min.css">
+  <link rel="stylesheet" href="/static/css/master.css">
+</head>
+<body>
+
+<div class="wrapper" data-ng-controller="IndexWrapperController as index" data-ng-class="index.getClass('wrapper')">
+
+  <header data-ng-class="index.getClass('header')" data-ng-include="'header.tpl.html'" data-ng-controller="HeaderController as header"></header>
+
+  <div class="main" data-ng-class="index.getClass('main')" data-ng-view autoscroll="true"></div>
+
+  <footer class="footer" data-ng-class="index.getClass('footer')" data-ng-include="'footer.tpl.html'" data-ng-controller="HeaderController as footer"></footer>
+
+</div>
+
+<script type="text/javascript">
+	window.onerror = function (errorMsg, url, lineNumber, columnNumber, errorObject) {
+		var errMsg = (errorObject && errorObject !== undefined) ? errorObject.message : errorMsg;
+		console.error('Error: ' + errMsg);
+	}
+</script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/ekko-lightbox.min.js"></script>
+<script src="/static/js/destaque.min.js"></script>
+<script src="/static/js/xml2json.min.js"></script>
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="/static/js/angular.min.js"></script>
+<script src="/static/js/decarta.min.js"></script>
+
+<script src="/static/js/bws.min.js"></script>
+<script src="/static/js/templates.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwYlxdk7OZ4ZgZAxr0V_O5DD-qg7S06S0&libraries=geometry,places&sensor=false"></script>
+
+</body>
+</html>
+

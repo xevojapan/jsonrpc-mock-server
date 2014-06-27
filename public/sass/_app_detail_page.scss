@@ -1,0 +1,368 @@
+
+@charset "utf-8";
+
+
+/* =============================
+
+	Basic	
+	
+============================= */
+
+
+/* upper contents ============================= */
+
+.upper_contents {
+	clear: both;
+	overflow: hidden;
+	width: 100%;
+	background: rgba(#e5e5e5, 1.0);
+	border-bottom: solid 1px #d6d6d6;
+	.app_summary_area {
+		clear: both;
+		overflow: hidden;
+		//border: #ff0000 solid 1px; //debug
+		width: 760px;
+		padding: 18px 0 36px 0;
+		@include block_center;
+		.app_summary_left {
+			width: 264px;
+			float: left;
+			.icon_large {
+				width: 260px;
+				height: 260px;
+			}
+			//border: #ff0000 solid 1px; //debug
+			.btn_install_large {
+				width: 260px;
+				@extend .text_C;
+				@include block_center;
+				padding: 14px 0 0 0;
+				//border: #ff0000 solid 1px; //debug
+				button {
+					@include r-btn-l-grey;
+					@include white-important;
+					line-height: 35px;
+					padding-top: 2px;
+					line-height: 24px;
+					@include block_center;
+					.text_install {
+						display: inline-block;
+						float: left;
+						margin: 3px 0 0 24px;
+						//padding-left: 8px;
+						//border: #ff0000 solid 1px; //debug
+					}
+					.text_installed {
+						display: inline-block;
+						float: left;
+						margin: 3px 0 0 10px;
+						//padding-left: 8px;
+						//border: #ff0000 solid 1px; //debug
+					}
+					.text_waiting {
+						display: inline-block;
+						float: left;
+						margin: 3px 0 0 16px;
+						//padding-left: 8px;
+						//border: #ff0000 solid 1px; //debug
+					}
+					img {
+						width: 30px;
+						height: 30px;
+						display: inline-block;
+						float: left;
+						margin-left: 36px;
+						//border: #ff0000 solid 1px; //debug
+					}
+					i.install {
+						display: inline-block;
+						float: left;
+						margin: 4px 6px 0 46px;
+					}
+				}
+				button.installed {
+					@include btn_disabled_color;
+				}
+			}
+		}
+		.app_summary_right {
+			width: 490px;
+			float: right;
+			padding: 32px 0 0 8px;
+			h1 {
+				font-size: 30px;
+				@include grey-important;
+			}
+			h5 {
+				padding: 6px 0 6px 1px;
+				@include fontsize-17;
+				@include blue_text_anchor;
+				
+			}
+			.price_detail {
+				padding: 3px 0 12px 1px;
+				@include fontsize-17;
+				@include grey-bit;
+				//border: #ff0000 solid 1px; //debug
+			}
+			.star_average_area {
+				//border: #ff0000 solid 1px; //debug
+				@include star_gauge;
+			}
+			.review_average {
+				width: 460px;
+				padding: 2px 0 12px 0;
+				//border: #ff0000 solid 1px; //debug
+				p { display: inline-block; @include fontsize-21; }
+				.average_point { @include grey-important; }
+				.total_review { @include grey-normal; }
+			}
+			.btn_social_area {
+				padding: 2px 0 0 0;
+				clear: both;
+				overflow: hidden;
+				//border: #ff0000 solid 1px; //debug
+				.btn_social {
+					display: inline-block;
+					float: left;
+					padding-right: 20px;
+					//border: #ff0000 solid 1px; //debug
+					a {
+						@include fontsize-21;
+						@include grey-important;
+						@include grey_text_anchor;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* main contents ============================= */
+
+.detail_main_contents {
+	clear: both;
+	width: 760px;
+	height: auto;
+	padding: 40px 0 40px 0;
+	@include block_center;
+	.info_detail_area {
+		padding: 26px 0 32px 0;
+		@include dot_line_normal;
+		clear: both;
+		overflow: hidden;
+	 }
+	.info_detail {
+		@include fontsize-14;
+		@include grey-normal;
+		line-height: 18px;
+	}
+	//border: #ff0000 solid 1px; //debug
+	h3 {
+		@include fontsize-21;
+		@include grey-important;
+		padding-bottom: 16px;
+	}
+	.screenshots {
+		height: auto;
+		//border: #ff0000 solid 1px; //debug
+		.screenshots_container {
+			padding: 10px 0 0 0;
+		}
+		a { 
+			display: inline-block;
+			padding: 0px 0 4px 10px;
+			cursor: pointer;
+		}
+		a:hover {
+			@include opacity(0.8);
+			@include transition-duration(0.2s);
+		}
+		img {
+			width: 240px;
+			height: auto;
+			max-height: 240px;
+			overflow: scroll;
+			float: left;
+		}
+	}
+	.app_description {
+		width: auto;
+	}
+	.version_info {
+		width: auto;
+		.info_detail {
+			height: 80px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			//border: #ff0000 solid 1px; //debug
+		}
+		a {
+			@include load_more;
+		}
+	}
+	.review_detail {
+		article {
+			padding-bottom: 16px;
+		}
+		a { @include load_more; }
+		.star_average_area { @include star_gauge;}
+	}
+}
+
+
+/* =============================
+
+	App store	
+	
+============================= */
+
+/* upper_banner_area ============================= */
+.upper_banner_area{
+	width: 100%;
+	height: 496px;
+}
+
+
+/*!
+ * Lightbox for Bootstrap 3 by @ashleydw
+ * https://github.com/ashleydw/lightbox
+ *
+ * License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
+ */
+
+.modal-dialog {
+	margin: 70px auto !important;
+	.modal-content {
+		//box-shadow: none;
+		@include box-shadow(none);
+		@include text-shadow(none);
+	}
+}
+
+.ekko-lightbox-container {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  @include block_center;
+}
+
+.ekko-lightbox-nav-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 550px;
+  vertical-align: bottom !important;
+  background: none;
+}
+
+.ekko-lightbox-nav-overlay a {
+  background: none;
+  z-index: 100;
+  display: block;
+  width: 30%;
+  height: 550px;
+  padding-top: 65% !important;
+  font-size: 26px;
+  color: #fff;
+  //text-shadow: 2px 2px 4px #000;
+  //filter: dropshadow(color=#000000, offx=2, offy=2);
+  @include transition-duration(0.5s);
+  vertical-align: bottom !important;
+  //padding-top: 500px !important;
+  //border: #ff0000 solid 1px; //debug
+}
+
+.ekko-lightbox-nav-overlay a:empty {
+  width: 49%;
+}
+
+.ekko-lightbox a:hover {
+  text-decoration: none;
+  opacity: 1;
+}
+
+.ekko-lightbox .glyphicon-chevron-left {
+  left: 0;
+  float: left;
+  padding-left: 15px;
+  text-align: left;
+}
+
+.ekko-lightbox .glyphicon-chevron-right {
+  right: 0;
+  float: right;
+  padding-right: 15px;
+  text-align: right;
+}
+
+.ekko-lightbox .modal-footer {
+  text-align: left;
+}
+
+
+/* light box Dark ============================= */
+
+.modal-backdrop.in {
+	-webkit-opacity: 0.95;
+	-moz-opacity: 0.95;
+	opacity: 0.95;
+	background-color: #333333;
+}
+.ekko-lightbox .modal-content {
+	//height: 1000px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	border: none;
+	background-color: transparent;
+}
+.ekko-lightbox .modal-header {
+  display: block !important;
+	height: 90px;
+	width: 840px;
+	@include block_center;
+  	border: 0;
+  	padding-left: 0;
+  	padding-right: 0;
+  	
+}
+.ekko-lightbox .modal-header .close {
+  	@include opacity(0.5);
+  	color: #fff;
+  	font-weight: 100;
+  	//margin-top: 5px;
+  	//padding-right: 40px;
+  	font-size: 50px;
+}
+.ekko-lightbox .modal-header .close:hover {
+  	-webkit-opacity: 1;
+  	-moz-opacity: 1;
+  	opacity: 1;
+}
+.ekko-lightbox .modal-header h4.modal-title {
+  	display: none !important;
+}
+.ekko-lightbox .modal-body {
+  	padding: 0;
+  	box-shadow: 0;
+  	@include box-shadow(none);
+}
+.ekko-lightbox .modal-footer {
+  	-webkit-opacity: 0.9;
+  	-moz-opacity: 0.9;
+  	opacity: 0.9;
+  	border: 0;
+  	color: #fff;
+  	font-weight: 100;
+  	padding: 0;
+}
+.ekko-lightbox-nav-overlay a {
+  	-webkit-opacity: 0.9;
+  	-moz-opacity: 0.9;
+  	opacity: 0.9;
+  	text-shadow: none;
+}
+

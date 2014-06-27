@@ -1,0 +1,25 @@
+<!-- login area -->
+<section class="login_area">
+  <div>
+    <ul>
+      <li><a href="/auth/facebook" target="_self">Facebook Login</a></li>
+      <li><a href="/auth/twitter" target="_self">Twitter Login</a></li>
+      <li><a href="/auth/google" target="_self">Google Login</a></li>
+    </ul>
+  </div>
+  <div class="login_container">
+    <form class="login_forms" data-ng-submit="login.signin()">
+      <h2><img src="/static/img/top_logo_uie.png" alt="UIE Cloud Connect"></h2>
+      <input type="email" class="input_login input_email" name="email" data-ng-model="login.email" placeholder="Email" autofocus required />
+      <input type="password" class="input_login input_password" name="password" data-ng-model="login.password" placeholder="Password" required />
+      <input class="btn_top_login" type="submit" value="Sign In" />
+    </form>
+
+    <button class="btn_signup" type="submit">Create a new account</button>
+
+    <form class="login_forms" data-ng-submit="login.signout()">
+      <input class="btn_top_login" type="submit" value="Sign Out" />
+    </form>
+  </div>
+</section>
+<!-- login area  -->

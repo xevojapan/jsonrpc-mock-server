@@ -1,0 +1,62 @@
+<div class="cnavi" data-ng-include="'app/app_header.tpl.html'" data-ng-controller="AppHeaderController as header"></div>
+
+<!-- main contents -->
+<section class="my_main_contents">
+  <h1>Your apps screen</h1>
+  <article class="page_description">You can lorem Ipsum is simply dummy text of the printing and typesetting
+    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+    took a galley of type and scrambled it to make a type specimen book.
+  </article>
+
+  <!-- updated info -->
+  <section class="info_update_area">
+    <article class="info_update">
+      <span>Today's updated apps</span>
+      <ul class="apps_updated">
+        <li><a href="">"Car Dashboard”</a></li>
+        <li><a href="">"Super Direction”</a></li>
+        <li><a href="">"Driving Simulator”</a></li>
+      </ul>
+    </article>
+    <article class="btn_update_history">
+      <a href="">Updates history<i class="fa fa-angle-right"></i></a>
+    </article>
+  </section>
+  <!-- updated info -->
+
+  <!-- apply button -->
+  <article class="btn_apply_change">
+    <button type="button" class="btn_cancel" data-ng-click="myapp.cancel()">Cancel</button>
+    <button type="button" class="btn_apply" data-ng-disabled="!myapp.dataChanged" data-ng-click="myapp.save()">Apply changes</button>
+  </article>
+  <!-- apply button -->
+
+  <!-- my screens -->
+  <section class="my_screens">
+    <article data-ng-repeat="page in myapp.pages" id="page_{{ page }}" class="my_screen">
+      <h3>Page {{ page }}</h3>
+    </article>
+  </section>
+  <!-- my screens -->
+
+  <!-- app list -->
+  <ul class="my_app_list" data-ui-sortable="myapp.sortableOption" data-ng-model="myapp.apps">
+    <li data-ng-repeat="app in myapp.apps" data-ng-class="{margin_page: myapp.checkAddMargin($index) }">
+      <a class="an_app" data-ng-href="/app/detail/{{ app.appid }}">
+        <img data-ng-src="{{ app.iconUrl.medium }}" alt="{{ app.displayName }}" />
+        <span>{{ app.displayName }}</span>
+      </a>
+      <a class="btn_delete_app" data-ng-click="myapp.deleteApp($index)"><i class="fa fa-times-circle"></i></a>
+    </li>
+  </ul>
+  <!-- app list -->
+
+  <!-- apply button -->
+  <article class="btn_apply_change">
+    <button type="button" class="btn_cancel" data-ng-click="myapp.cancel()">Cancel</button>
+    <button type="button" class="btn_apply" data-ng-disabled="!myapp.dataChanged" data-ng-click="myapp.save()">Apply changes</button>
+  </article>
+  <!-- apply button -->
+
+</section>
+<!-- main contents -->

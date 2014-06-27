@@ -1,0 +1,21 @@
+<ol class="breadcrumb">
+  <li><a data-ng-click="navi.go('clist')">Category</a></li>
+  <li class="active">{{ navi.getCategoryName(navi.params.c) }}</li>
+</ol>
+<ul class="list_map" data-ng-controller="NaviCategoryDetailController as detail">
+  <span data-ng-show="detail.list.length === 0">Loading...</span>
+  <li class="single_btn" data-ng-repeat="poi in detail.list" data-ng-class="{selected: poi.selected}" data-ng-click="detail.setSelected($index)">
+    <div class="pin_number">{{ detail.getListPinNumber($index) }}</div>
+    <a>
+      <span class="name_poi">{{ poi.name }}</span>
+      <span class="address_poi">{{ poi.address }}</span>
+    </a>
+    <div class="btn_list btn_fav">
+      <label class="switch-light switch-candy" data-ng-hide="poi.updating">
+        <input type="checkbox" value="true" data-ng-model="poi.fav" data-ng-click="detail.switchFav(poi)"><i class="fav glyphicon glyphicon-star"></i>
+      </label>
+      <i class="fav fa fa-spin fa-spinner" data-ng-show="poi.updating"></i>
+    </div>
+  </li>
+</ul>
+

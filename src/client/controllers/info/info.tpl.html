@@ -1,0 +1,604 @@
+<!-- contents navigation -->
+<div class="cnavi" id="top-info">
+  <ul class="c_navi">
+    <li><a smooth-scroll target="carinfo" speed="500" offset="0">Car Info</a></li>
+    <li><a smooth-scroll target="live" speed="500" offset="0">Live</a></li>
+    <li><a smooth-scroll target="health" speed="500" offset="0">Health</a></li>
+    <li><a smooth-scroll target="manual" speed="500" offset="0">Owner's Manual</a></li>
+  </ul>
+
+  <!-- "Back to top" sample script ================== -->        
+  <script>
+    $(function(){
+      var backTop = $('#back-top');
+      // hide #back-top first
+      backTop.hide();
+      // fade in #back-top
+      $(function(){
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 100) {
+            backTop.fadeIn();
+          } else {
+            backTop.fadeOut();
+          }
+        });
+        // scroll body to 0px on click
+        $('#back-top a').click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 800);
+          return false;
+        });
+      });
+    });
+  </script>
+  <!-- "Back to top" sample script ================== -->
+
+</div>
+<!-- contents navigation -->
+
+<!-- car info area -->
+<section class="carinfo_area" id="carinfo">
+  <h1>Car Info</h1>
+  <div id="carinfo_map" class="carinfo_map" data-ui-decarta="info.map" data-ui-options="info.mapOptions"></div>
+
+  <div class="dashboard_area">
+    <div class="dashboard">
+      <div class="fuel chart_assets">
+        <h3>Remaining Fuel</h3>
+        <div class="chart_square">
+          <img src="/static/img/g_remaining_fuel.png">
+        </div>
+        <div class="value_chart">
+          <h4>25.20</h4>
+          <span class="unit_chart">gal</span>
+        </div>
+        <div class="memo_chart">
+          <p>Last updated:</p>
+          <p>{{ info.today | date:'MMM d, y H:mm' }}</p>
+        </div>
+      </div>
+      <div class="battery chart_assets">
+        <h3>Battery</h3>
+        <div class="chart_square">
+          <img src="/static/img/g_battery.png">
+        </div>
+        <div class="value_chart">
+          <h4>11.80</h4>
+          <span class="unit_chart">%</span>
+        </div>
+        <div class="memo_chart">
+          <p>Last updated:</p>
+          <p>{{ info.today | date:'MMM d, y H:mm' }}</p>
+        </div>
+      </div>
+      <div class="economy chart_assets">
+        <h3>Fuel Economy</h3>
+        <div class="chart_square">
+          <img src="/static/img/g_fuel_economy.png">
+        </div>
+        <div class="value_chart">
+          <h4>8.10</h4>
+          <span class="unit_chart">mile/gal</span>
+        </div>
+        <div class="memo_chart">
+          <p>Last updated:</p>
+          <p>{{ info.today | date:'MMM d, y H:mm' }}</p>
+        </div>
+        <button type="button" class="btn_viewmore_small" title="Install Button">View more</button>
+      </div>
+      <div class="mileage chart_assets">
+        <h3>Mileage</h3>
+        <div class="chart_rectangle">
+          <img src="/static/img/g_mileage.png">
+        </div>
+        <div class="value_chart">
+          <h4>1024</h4>
+          <span class="unit_chart">mile</span>
+        </div>
+        <div class="memo_chart">
+          <p>Last updated:</p>
+          <p>{{ info.today | date:'MMM d, y H:mm' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- car info area -->
+
+<!-- Live area -->
+<section class="live_area" id="live">
+  <h1>Live</h1>
+
+  <div class="live">
+    <div class="graphical_info">
+      <ul>
+        <li class="parts_car headlight_f_l"><a><img src="/static/img/h_l.png"></a></li>
+        <li class="parts_car door door_f_l"><a><img src="/static/img/l_f_l_ok.png"></a></li>
+        <li class="parts_car door door_f_r"><a><img src="/static/img/l_f_r_ok.png"></a></li>
+        <li class="parts_car door door_r_l trouble"><a><img src="/static/img/l_r_l_ng.png"></a></li>
+        <li class="parts_car door door_r_r"><a><img src="/static/img/l_r_r_ok.png"></a></li>
+        <li class="parts_car door_hatch"><a><img src="/static/img/l_rear_hatch.png"></a></li>
+        <li class="parts_car window window_f_l"><a><img src="/static/img/l_window_f_l_ok.png"></a></li>
+        <li class="parts_car window window_f_r trouble"><a><img src="/static/img/l_window_f_r_ng.png"></a></li>
+        <li class="parts_car window window_r_l"><a><img src="/static/img/l_window_r_l_ok.png"></a></li>
+        <li class="parts_car window window_r_r"><a><img src="/static/img/l_window_r_r_ok.png"></a></li>
+      </ul>
+    </div>
+    <div class="status_info">
+      <h4>Status</h4>
+      <table class="table">
+        <tr class="list_headlight">
+          <td>Head light</td>
+          <td class="right_line">OFF</td>
+        </tr>
+        <tr class="list_door trouble">
+          <td>Door</td>
+          <td class="right_line">Rear-left Opened<i class="fa fa-exclamation-circle"></i></td>
+        </tr>
+        <tr class="list_trunk">
+          <td>Trunk</td>
+          <td class="right_line">Closed</td>
+        </tr>
+        <tr class="list_window trouble">
+          <td>Window</td>
+          <td class="right_line">Front-right Opened<i class="fa fa-exclamation-circle"></i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+  //Mouse over effect ====================================
+
+  //Head light
+    $(".headlight_f_l").hover(function(){
+      $(".list_headlight").css("background", "rgba(0,0,0,0.1)");
+      $(".list_headlight").css("-webkit-transition", "all 0.2s ease");
+      $(".list_door").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+
+      $(".door").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_headlight").css("background", "none");
+      $(".list_headlight").css("-webkit-transition", "all 0.2s ease");
+      $(".list_door").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".door").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Door front left
+    $(".door_f_l").hover(function(){
+      $(".list_door").css("background", "rgba(0,0,0,0.1)");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_door").css("background", "none");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Door front right
+    $(".door_f_r").hover(function(){
+      $(".list_door").css("background", "rgba(0,0,0,0.1)");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_door").css("background", "none");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Door rear left
+    $(".door_r_l").hover(function(){
+      $(".list_door").css("background", "rgba(0,0,0,0.1)");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_door").css("background", "none");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Door rear left
+    $(".door_r_r").hover(function(){
+      $(".list_door").css("background", "rgba(0,0,0,0.1)");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_door").css("background", "none");
+      $(".list_door").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Window front left
+    $(".window_f_l").hover(function(){
+      $(".list_window").css("background", "rgba(0,0,0,0.1)");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_window").css("background", "none");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Window front right
+    $(".window_f_r").hover(function(){
+      $(".list_window").css("background", "rgba(0,0,0,0.1)");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_window").css("background", "none");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Window rear left
+    $(".window_r_l").hover(function(){
+      $(".list_window").css("background", "rgba(0,0,0,0.1)");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_window").css("background", "none");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Window rear right
+    $(".window_r_r").hover(function(){
+      $(".list_window").css("background", "rgba(0,0,0,0.1)");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_window").css("background", "none");
+      $(".list_window").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Trunk
+    $(".door_hatch").hover(function(){
+      $(".list_trunk").css("background", "rgba(0,0,0,0.1)");
+      $(".list_trunk").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+    }, function(){
+      $(".list_trunk").css("background", "none");
+      $(".list_trunk").css("-webkit-transition", "all 0.2s ease");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+    });
+  
+    //List mouse over
+  
+    //Head light
+    $(".list_headlight").hover(function(){
+      $(".list_headlight").css("background", "rgba(0,0,0,0.1)");
+      $(".list_door").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      
+      $(".door").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_headlight").css("background", "none");
+      $(".list_door").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".door").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Door
+    $(".list_door").hover(function(){
+      $(".list_door").css("background", "rgba(0,0,0,0.1)");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_door").css("background", "none");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Window
+    $(".list_window").hover(function(){
+      $(".list_window").css("background", "rgba(0,0,0,0.1)");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_trunk").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".door_hatch").css("opacity", "0.2");
+    }, function(){
+      $(".list_window").css("background", "none");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_trunk").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".door_hatch").css("opacity", "1.0");
+    });
+  
+    //Hatch
+    $(".list_trunk").hover(function(){
+      $(".list_trunk").css("background", "rgba(0,0,0,0.1)");
+      $(".list_headlight").css("opacity", "0.2");
+      $(".list_window").css("opacity", "0.2");
+      $(".list_door").css("opacity", "0.2");
+      
+      $(".headlight_f_l").css("opacity", "0.2");
+      $(".door").css("opacity", "0.2");
+      $(".window").css("opacity", "0.2");
+    }, function(){
+      $(".list_trunk").css("background", "none");
+      $(".list_headlight").css("opacity", "1.0");
+      $(".list_window").css("opacity", "1.0");
+      $(".list_door").css("opacity", "1.0");
+      
+      $(".headlight_f_l").css("opacity", "1.0");
+      $(".door").css("opacity", "1.0");
+      $(".window").css("opacity", "1.0");
+    });
+
+    //Mouse over effect ====================================
+  </script>
+  
+</section>
+<!-- Live area -->
+
+<!-- Health area -->
+<section class="health_area" id="health">
+  <h1>Health</h1>
+  <div class="health">
+  
+    <table class="table health_table">
+      <tr class=" status_bad btn-default" rel="popover" data-placement="top" data-trigger='click'>
+        <td class="name_point">Tire air pressure</td>
+        <td class="image_table"><img src="/static/img/icon_health_tire_bad.png" alt="Tire Icon - Bad"></td>
+      <td class="name_status">Bad</td>
+      </tr>
+      
+      <tr class="status_good">
+        <td class="name_point">Engine oil</td>
+        <td class="image_table"><img src="/static/img/icon_health_engineoil_good.png" alt="Engine Oil Icon - Good"></td>
+      <td class="name_status">Good</td>
+      </tr>
+      <tr class="status_good">
+        <td class="name_point">Brake system</td>
+        <td class="image_table"><img src="/static/img/icon_health_brake_good.png" alt="Brake Icon - Good"></td>
+      <td class="name_status">Good</td>
+      </tr>
+      <tr class="status_good">
+        <td class="name_point">Engine temperature</td>
+        <td class="image_table"><img src="/static/img/icon_health_coolant_good.png" alt="Coolant Icon - Good"></td>
+      <td class="name_status">Good</td>
+      </tr>
+      <tr class="status_notbad">
+        <td class="name_point">Battery</td>
+        <td class="image_table"><img src="/static/img/icon_health_battery_notbad.png" alt="Battery Icon - OK"></td>
+      <td class="name_status">OK</td>
+      </tr>
+      <tr class="status_bad">
+        <td class="name_point">Electrical component</td>
+        <td class="image_table"><img src="/static/img/icon_health_bulb_bad.png" alt="Electrical Component - Bad"></td>
+      <td class="name_status">Bad</td>
+      </tr>
+      <tr class="status_good">
+        <td class="name_point">Washer Fluid</td>
+        <td class="image_table"><img src="/static/img/icon_health_washer_good.png" alt="Washer Fluid - Good"></td>
+      <td class="name_status">Good</td>
+      </tr>
+      <tr class="status_good">
+			  <td class="name_point">Air Bag</td>
+			  <td class="image_table"><img src="/static/img/icon_health_airbag_good.png" alt="Air Bag - Good"></td>
+				<td class="name_status">Good</td>
+      </tr>
+      <!-- Popover sample script for "Health" section ================== -->
+      <script>
+        $(function(){
+          $('[rel=popover]').popover({
+            html : true,
+            content: function() {
+              return $('#popover_content_wrapper').html();
+            }
+          });
+        });
+      </script>
+      <!-- Popover sample script for "Health" section ================== -->
+      
+    </table>
+    
+    <!-- Popover contents -->
+    <div id="popover_content_wrapper" style="display: none">
+      <p class="problem_content">Tire underinflated. Code: #102451</p>
+      <p class="result_value_good">FL:28.0 PSI</p>
+      <p class="result_value_good">FR:27.5 PSI</p>
+      <p class="result_value_bad">RL:24.0 PSI (Underinflated)</p>
+      <p class="result_value_good">FR:26.5 PSI</p>
+      <p class="problem_date">Last updated: {{ info.today | date:'MMM d, y H:mm' }}</p>
+      <div class="manual_link"><a>View in owner’s manual<i class="fa fa-angle-right"></i></a></div>
+    </div>
+  <!-- Popover contents -->
+
+  </div>
+</section>
+<!-- Health area -->
+
+<!-- Owners manual area -->
+<section class="manual_area" id="manual">
+  <div class="manual_wrapper">
+    <h1>Owner's Manual</h1>
+    <div class="manual">
+      <div class="manual_header">
+        <h3>UIEAUTO CC500 (2014)</h3>
+        <form class="form-search form-inline r-search">
+          <input type="text" class="form-control" placeholder="Input to search"><span class="glyphicon glyphicon-search"></span>
+        </form>
+      </div>
+      <div class="manual_contents">
+        <ul class="left_side">
+          <li><a>Quick Reference Guide</a></li>
+          <li><a>Front</a></li>
+          <li><a>Pictorial Index</a></li>
+          <li><a>Foreword</a></li>
+          <li><a>Hybrid system</a></li>
+          <li><a>Opening, closing and locking the doors</a></li>
+          <li><a>Refueling</a></li>
+          <li><a>Theft deterrent system</a></li>
+          <li><a>Safety information</a></li>
+          <li><a>Driving procedures</a></li>
+          <li><a>Instrument cluster</a></li>
+          <li><a>Operating the lights and windshield wipers</a></li>
+        </ul>
+        <ul class="right_side">
+          <li><a>Using the air conditioning system and defogger</a></li>
+          <li><a>Using the audio system</a></li>
+          <li><a>Using the interior lights</a></li>
+          <li><a>Using the storage features</a></li>
+          <li><a>Other interior features</a></li>
+          <li><a>Maintenance and care</a></li>
+          <li><a>Maintenance</a></li>
+          <li><a>Do-it-yourself maintenance</a></li>
+          <li><a>Steps to take in an emergency</a></li>
+          <li><a>Specifications</a></li>
+          <li><a>ECustomization</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Owners manual area -->
+
+<!-- scroll to top button -->
+<p id="back-top">
+  <a href="#scroll_to_top"><span></span></a>
+</p>
+<!-- scroll to top button -->
+

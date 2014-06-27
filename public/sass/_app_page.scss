@@ -1,0 +1,255 @@
+
+@charset "utf-8";
+
+
+/* =============================
+
+	Basic	
+	
+============================= */
+
+
+
+/* Header ============================= */
+.header_app {
+	background: rgba(#333333, 1.0);
+}
+
+
+/* main  ============================= */
+.main {
+	min-width: 800px;
+}
+
+/* contents navigation  ============================= */
+.cnavi {
+	@include cnavi-base;
+	ul.l_navi {
+		//border: #ff0000 solid 1px; //debug
+		@include cnavi;
+		float: left;
+		margin: 0;
+	}
+	
+	form {
+		width: 320px;
+		height: 84px;
+		float: right;
+		position: relative;
+    	padding: 24px 24px 0 0;
+    	//border: #ff0000 solid 1px; //debug
+    	input.form-control {
+	    	@include input_form;
+    	}
+    	span {
+	    	@include search_icon;
+    	}
+	}
+}
+
+
+/* main contents ============================= */
+
+.my_main_contents {
+	width: 800px;
+	height: auto;
+	padding: 50px 0 20px 0;
+	position: relative;
+	@include block_center;
+	//border: #ff0000 solid 1px; //debug
+	h1 {
+		@include fontsize-34;
+		@include blue-normal;
+		//border: #ff0000 solid 1px; //debug
+	}
+	.page_description {
+		width: 100%;
+		height: 96px;
+		padding: 24px 0 20px 0;
+		@include fontsize-14;
+		border-bottom: dotted 1px rgba(#cccccc, 1.0);
+	}
+	.info_update_area {
+		width: auto;
+		height: 68px;
+		//border: #ff0000 solid 1px; //debug
+		//background: rgba(#ff0707, 0.1); //debug
+		@include fontsize-13;
+		position: relative;
+		.info_update {
+			width: 640px;
+			float: left;
+			position: absolute;
+			bottom: 4px;
+		}
+		.apps_updated {
+			width: 640px;
+			float: left;
+			li {
+				display: inline-block;
+				margin: 4px 4px 0 0;
+				a {
+					@include blue_text_anchor;
+				}
+			}
+		}
+		.btn_update_history {
+			width: 158px;
+			height: 68px;
+			float: right;
+			//background: rgba(#ff0707, 0.1); //debug
+			border-left: solid 1px rgba(#cccccc, 1.0);
+			position: relative;
+			padding: 0 0 0 10px;
+			a {
+				position: absolute;
+				bottom: 2px;
+				vertical-align: bottom;
+				@include grey-normal;
+				@include grey_text_anchor;
+				i { margin-left: 8px;}
+			}
+		}
+	}
+}
+
+
+.btn_apply_change {
+	width: 300px;
+	height: 94px;
+	//background: rgba(#ff0707, 0.1); //debug
+	clear: both;
+	padding: 32px 0 0 8px;
+	@include block_center;
+	button {
+		margin-left: 8px;
+		font-weight: 500;
+	}
+	.btn_apply {
+		@include r-btn-ms-blue;
+	}
+	.btn_cancel {
+		@include r-btn-ms-grey;
+	}
+}
+
+.my_screens {
+	width: 660px;
+	@include block_center;
+	margin-bottom: 20px;
+	border-bottom: black solid 1px;
+	//border: #ff0000 solid 1px; //debug
+	.my_screen {
+		h3 {
+			color: #ffffff;
+			margin-left: 16px;
+		}
+		position: relative;
+		background: rgba(#333a40, 1.0);
+		width: 660px;
+		height: 330px;
+		padding: 22px 0 0 0;
+		@include block_center;
+		border-bottom: dotted 2px #1f2326;
+		
+		.btn_remove_page {
+			width: 160px;
+			position: absolute;
+			top: 18px;
+			right: 14px;
+			background: none;
+			border: none;
+			vertical-align: top;
+			@include white-important;
+			@include fontsize-14;
+			@include border-bottom-radius(4px);
+			span {
+				@include red-important;
+				margin-right: 8px;
+			}
+		}
+		
+	}
+	.btn_add_page_area {
+		background: none;
+		.btn_add_page {
+			width: 160px;
+			height: 32px;
+			float: right;
+			border: none;
+			border-top: solid 1px rgba(255,255,255, 0.1);
+			background: #3f4951;
+			
+			vertical-align: top;
+			@include white-important;
+			@include fontsize-14;
+			@include border-bottom-radius(4px);
+			span {
+				@include green-important;
+				margin-right: 8px;
+			}
+		}
+	}
+}
+
+.my_app_list {
+	margin: 20px 0 0 0 ;
+	padding: 0 0 0 0 ;
+	width: 646px;
+	position: absolute;
+	top: 380px;
+	left: 76px;
+	overflow: auto;
+	@include box-sizing(border-box);
+	//background: rgba(#ff0707, 0.1); //debug
+	li {
+		display: inline-block;
+		width: 161px;
+		height: 114px;
+		padding-top: 12px;
+		position: relative;
+		@extend .text_C;
+		vertical-align: top;
+		//background: rgba(#07ebff, 0.3); //debug
+		a.an_app {
+			@include white-important;
+			@include white_text_anchor;
+		}
+		.btn_delete_app {
+			display: none;
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 8px;
+			left: 44px;
+		}
+		&:hover .btn_delete_app {
+			display: inline-block;
+			@include white-important;
+			@include white_to_red_anchor;
+			i {
+				display: inline-block;
+				@include fontsize-21;
+				@include text-shadow(rgba(black, 0.5) 0px 0px 8px);
+			}
+		}
+		img {
+			width: 60px;
+			height: 60px;
+			margin-bottom: 4px;
+		}
+		span {
+			display: block;
+			@include fontsize-14;
+		}
+	}
+	.margin_page {
+		height: 206px;
+	}
+	.ui-sortable-helper {
+		margin: 0px !important;
+	}
+	.ui-sortable-placeholder {
+	  height: 114px !important;
+  }
+}
