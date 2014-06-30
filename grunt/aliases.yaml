@@ -1,5 +1,4 @@
 angular:
-  - concat:drivelytics
   - ngmin
   - ngtemplates
 

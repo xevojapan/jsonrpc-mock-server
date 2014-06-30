@@ -21,29 +21,11 @@ module.exports = {
     src: ['js/*.min.js', 'css/*.min.css', 'fonts/*'],
     dest: '<%= dest.files %>/'
   },
-  lightbox: {
-    expand: true,
-    cwd: 'bower_components/ekko-lightbox/',
-    src: 'ekko-lightbox.min.js',
-    dest: '<%= dest.files %>/js/'
-  },
-  destaque: {
-    expand: true,
-    cwd: 'bower_components/destaque/',
-    src: 'destaque.min.js',
-    dest: '<%= dest.files %>/js/'
-  },
   ace_builds: {
     expand: true,
     cwd: 'bower_components/ace-builds/src-min-noconflict/',
     src: '*.js',
     dest: '<%= dest.files %>/js/ace/'
-  },
-  x2js: {
-    expand: true,
-    cwd: 'bower_components/x2js/',
-    src: 'xml2json.min.js',
-    dest: '<%= dest.files %>/js/'
   },
 
   fontawesome: {
@@ -58,13 +40,6 @@ module.exports = {
     cwd: '<%= dest.client %>/',
     src: 'angular.min.js',
     dest: '<%= dest.files %>/js/'
-  },
-
-  deCarta: {
-    expand: true,
-    cwd: '<%= dest.build %>/',
-    src: ['js/decarta.*', 'css/decarta.min.css'],
-    dest: '<%= dest.files %>/'
   },
 
   build: {
