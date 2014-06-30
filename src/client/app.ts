@@ -5,34 +5,12 @@
 ///<reference path="./services.ts" />
 
 
-angular.module('bws', [
+angular.module('jrpc', [
   'ngAnimate',
   'ngRoute',
   'ui.event',
   'ui.bootstrap',
-  'ui.sortable',
-  'angularSmoothscroll',
-  'bws.directives',
-  'bws.directives.map',
-  'bws.filters',
-  'bws.services',
-  'bws.controllers',
-  'bws.controllers.login',
-  'bws.controllers.top',
-  'bws.controllers.info',
-//  'bws.controllers.hist',
-  'bws.controllers.navi',
-  'bws.controllers.app',
-
-  'ngResource',
-  'pascalprecht.translate',
-  'ui.calendar',
-  'ui.map',
-  'dl.filters',
-  'dl.modal',
-  'dl.security.service',
-  'dl.services',
-  'dl.past',
+  'jrpc.services',
 ])
 .config(($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider) => {
   $locationProvider.html5Mode(true).hashPrefix('!');

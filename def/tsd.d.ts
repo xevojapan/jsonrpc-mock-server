@@ -13,3 +13,4 @@
 /// <reference path="x2js/xml2json.d.ts" />
 /// <reference path="passport/passport.d.ts" />
 /// <reference path="passport-facebook/passport-facebook.d.ts" />
+/// <reference path="angular-ui/angular-ui-router.d.ts" />

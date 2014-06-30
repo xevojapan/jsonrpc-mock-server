@@ -49,6 +49,9 @@
     },
     "passport-facebook/passport-facebook.d.ts": {
       "commit": "14bea81d0ea20b2d787b38ad3d8f42578fa92ec8"
+    },
+    "angular-ui/angular-ui-router.d.ts": {
+      "commit": "3c26df13c42c5a7c585237f390d787ffc7d61bfc"
     }
   }
 }

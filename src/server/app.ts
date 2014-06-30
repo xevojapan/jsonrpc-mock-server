@@ -1,31 +1,23 @@
 ///<reference path="../../def/node/node.d.ts" />
 ///<reference path="../../def/express/express.d.ts" />
-///<reference path="../../def/moment/moment.d.ts" />
 
 import express = require('express');
 import http = require('http');
 import path = require('path');
-import login = require('./routes/login');
-import appsapi = require('./routes/appsapi');
-import userappsapi = require('./routes/userappsapi');
-import newsdata = require('./routes/newsapi');
-import admin = require('./routes/adminapi');
-import drivelytics = require('./routes/drivelyticsproxy');
-import rooney = require('./routes/rooneyproxy');
+import model = require('./model');
 
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var cookieParser = require('cookie-parser');
-var csrf = require('csurf');
+//var csrf = require('csurf');
 var favicon = require('static-favicon');
 var jsonrpc = require('multitransport-jsonrpc');
 var methodOverride = require('method-override');
-var passport = require('passport');
+//var passport = require('passport');
 var session = require('express-session');
 var static = require('serve-static');
 var MongoStore = require('connect-mongo')(session);
 
-var moment = require('moment');
 var log4js = require("log4js");
 var config = require("config");
 
@@ -40,36 +32,71 @@ export function setPageRoutes(app: express.Application): void {
     res.send(404);
   });
 }
-export function setApiRoutes(app: express.Application): void {
-  login.setPassportRoute(app);
-  app.get('/api/userinfo', login.getUserInfo);
-
-  app.get('/api/appstore/list', appsapi.getAppstoreList);
-  app.get('/api/appinfo/:appid', appsapi.getAppInfo);
-
-  app.get('/api/userapps/myapps', userappsapi.getMyApps);
-  app.put('/api/userapps/myapps', userappsapi.updateMyApps);
-  app.get('/api/userapps/install/:appid', userappsapi.checkInstallApps);
-  app.post('/api/userapps/install/:appid', userappsapi.addMyApps);
-  app.delete('/api/userapps/install/:appid', userappsapi.removeMyApps);
-
-  app.get('/api/newsdata/list', newsdata.getNewsList);
-
-  app.get('/api/drivelytics/*', drivelytics.login, drivelytics.proxy);
-  app.get('/api/rooney/*', rooney.login, rooney.proxyGet);
-  app.post('/api/rooney/*', rooney.login, rooney.proxyPost);
-
-  admin.setRestApi(app, '/api/admin/');
-}
 export function setJsonRpcRoutes(app: express.Application): void {
-  var jsonRpcMiddlewareServer: any = new jsonrpc.server(new jsonrpc.transports.server.middleware(), {
+  var scope: {[index: string]: Function} = {
     loopback: (obj: any, callback: (err: any, res: any) => void) => {
       logger.debug('rpc: ' + JSON.stringify(obj));
       callback(null, obj);
-    },
-    newsdata: newsdata.rpcGetNewsList
+    }
+  };
+  model.JsonRpcMethod.find({}, (err: any, result: model.IJsonRpcMethod[]) => {
+    if (err) {
+      logger.error('Methods Initialize Error: ' + err, err);
+    } else {
+      result.forEach((method) => {
+        scope[method.name] = convertToCallback(method);
+      });
+    }
   });
+
+  var jsonRpcMiddlewareServer: any = new jsonrpc.server(new jsonrpc.transports.server.middleware(), scope);
   app.post('/rpc', jsonRpcMiddlewareServer.transport.middleware);
+
+  app.post('/api/method/:name', (req: express.Request, res: express.Response): void => {
+    var name = req.param('name');
+    var data = req.body;
+    if (!data) {
+      res.json(400, 'requred post body.');
+      return;
+    }
+
+    data.name = name;
+    logger.info('addMethod: ' + JSON.stringify(data));
+
+    var method = new model.JsonRpcMethod(data);
+    method.save((err: any) => {
+      if (err) {
+        logger.error('addMethod Error: ' + err, err);
+      } else {
+        logger.info('addMethod Success: ' + name);
+        scope[name] = convertToCallback(method);
+      }
+    });
+  });
+  app.delete('/api/method/:name', (req: express.Request, res: express.Response): void => {
+    var name = req.param('name');
+
+    logger.info('deleteMethod: ' + name);
+
+    scope[name] = undefined;
+    model.JsonRpcMethod.remove({ _id: name }, (err: any) => {
+      if (err) {
+        logger.error('deleteMethod Error: ' + err, err);
+      } else {
+        logger.info('deleteMethod Success: ' + name);
+      }
+    });
+  });
+}
+function convertToCallback(method: model.IJsonRpcMethod): Function {
+  return (obj: any, callback: (err: any, res: any) => void): void => {
+    logger.debug(' rpc called: ' + method._id + ', params=' + JSON.stringify(obj));
+    if (method.isError) {
+      callback(method.error, null);
+    } else {
+      callback(null, method.result);
+    }
+  };
 }
 
 
@@ -109,10 +136,10 @@ app.set('port', process.env.PORT || config.server.listenPort);
 
 app.enable('trust proxy');
 app.use(methodOverride());
-app.use(cookieParser('bentoWebServer'));
+app.use(cookieParser('jrpcMockServer'));
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'BentoWebServer',
+  secret: 'jrpcMockServer',
   maxAge: new Date(Date.now() + config.session.duration),
   store: new MongoStore({
     db: config.mongodb.database,
@@ -121,20 +148,9 @@ app.use(session({
     password: config.mongodb.password
   })
 }));
-setJsonRpcRoutes(app);
-
-app.use(csrf());
-app.use((req: express.Request, res: express.Response, next: () => void) => {
-  logger.debug('res.csrfToken=' + req.csrfToken());
-  res.cookie('XSRF-TOKEN', req.csrfToken());
-  //res.locals.csrftoken = req.csrfToken();
-  next();
-});
-app.use(passport.initialize());
-app.use(passport.session());
 
 setPageRoutes(app);
-setApiRoutes(app);
+setJsonRpcRoutes(app);
 
 
 // all other routes will be handled by client-side; thus forward missing files to the index.html
