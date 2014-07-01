@@ -2,6 +2,7 @@
 ///<reference path="../../def/express/express.d.ts" />
 
 import express = require('express');
+import fs = require('fs');
 import http = require('http');
 import path = require('path');
 import model = require('./model');
@@ -52,24 +53,38 @@ export function setJsonRpcRoutes(app: express.Application): void {
   var jsonRpcMiddlewareServer: any = new jsonrpc.server(new jsonrpc.transports.server.middleware(), scope);
   app.post('/rpc', jsonRpcMiddlewareServer.transport.middleware);
 
+  app.get('/api/method', (req: express.Request, res: express.Response): void => {
+    logger.info('getMethod');
+
+    model.JsonRpcMethod.find({}).sort({_id: 1}).exec((err: any, result: model.IJsonRpcMethod[]) => {
+      if (err) {
+        logger.error('getMethod Error: ' + err, err);
+        res.json(500, { result: false, message: err.toString() });
+      } else {
+        logger.info('getMethod Success.');
+        res.json({ result: true, methods: result });
+      }
+    });
+  });
   app.post('/api/method/:name', (req: express.Request, res: express.Response): void => {
     var name = req.param('name');
     var data = req.body;
     if (!data) {
-      res.json(400, 'requred post body.');
+      res.json(400, { result: false, message: 'required post body' });
       return;
     }
 
-    data.name = name;
-    logger.info('addMethod: ' + JSON.stringify(data));
+    logger.info('updateMethod: name=' + name + ', ' + JSON.stringify(data));
 
-    var method = new model.JsonRpcMethod(data);
-    method.save((err: any) => {
+    model.JsonRpcMethod.findByIdAndUpdate(name, { $set: data }, { upsert: true }, (err: any, method: model.IJsonRpcMethod) => {
       if (err) {
-        logger.error('addMethod Error: ' + err, err);
+        logger.error('updateMethod Error: ' + err, err);
+        res.json(500, { result: false, message: err.toString() });
       } else {
-        logger.info('addMethod Success: ' + name);
+        logger.info('updateMethod Success: ' + name);
+        logger.debug( method );
         scope[name] = convertToCallback(method);
+        res.json({ result: true });
       }
     });
   });
@@ -82,8 +97,10 @@ export function setJsonRpcRoutes(app: express.Application): void {
     model.JsonRpcMethod.remove({ _id: name }, (err: any) => {
       if (err) {
         logger.error('deleteMethod Error: ' + err, err);
+        res.json(500, { result: false, message: err.toString() });
       } else {
         logger.info('deleteMethod Success: ' + name);
+        res.json({ result: true });
       }
     });
   });
@@ -97,6 +114,22 @@ function convertToCallback(method: model.IJsonRpcMethod): Function {
       callback(null, method.result);
     }
   };
+}
+
+export function setLogsRoutes(app: express.Application): void {
+  app.get('/api/log/access', (req: express.Request, res: express.Response): void => {
+    logger.info('getAccessLog');
+
+    fs.readFile(config.log4js.filename.app, (err: any, data: Buffer) => {
+      if (err) {
+        logger.error('getAccessLog Error: ' + err, err);
+        res.json(500, { result: false, message: err.toString() });
+      } else {
+        logger.info('getAccessLog Success.');
+        res.json({ result: true, log: data.toString() });
+      }
+    });
+  });
 }
 
 
@@ -151,6 +184,7 @@ app.use(session({
 
 setPageRoutes(app);
 setJsonRpcRoutes(app);
+setLogsRoutes(app);
 
 
 // all other routes will be handled by client-side; thus forward missing files to the index.html

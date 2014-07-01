@@ -1,0 +1,31 @@
+<div data-ng-show="config.showList()">
+  <ol class="breadcrumb">
+    <li class="active">Method List</li>
+  </ol>
+
+  <div class="list-group">
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-info" data-ng-click="config.reload()">Reload</button>
+      </div>
+      <div class="col-md-6">
+        <form class="form-inline" role="form">
+          <div class="form-group">
+            <label for="addName">name</label>
+            <input type="text" class="form-control" id="addName" placeholder="method name" data-ng-model="config.addname">
+          </div>
+          <button type="submit" class="btn btn-info" data-ng-click="config.add()" data-ng-disable="config.addname.length === 0">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <a data-ng-repeat="item in config.methods" data-ui-sref="config.detail({ name: item.name })" class="list-group-item" data-ng-class="item.isError ? 'list-group-item-danger' : 'list-group-item-success'">
+      {{ item.name }}
+    </a>
+  </div>
+</div>
+
+<div ui-view="body"></div>
+

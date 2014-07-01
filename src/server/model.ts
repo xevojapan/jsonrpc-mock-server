@@ -29,6 +29,7 @@ var db = mongoose.createConnection(connectionStr, (err: any) => {
 export interface IJsonRpcMethod extends mongoose.Document, jrpc.IJsonRpcMethod {
 }
 var JsonRpcMethodSchema = new Schema({
+  _id: { type: String, required: true },
   isError: { type: Boolean, required: true },
   error: {
     code: Number,

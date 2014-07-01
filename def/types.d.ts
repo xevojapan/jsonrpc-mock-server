@@ -11,6 +11,14 @@ declare module jrpc {
     result?: any;
   }
 
+  export interface IMethodList extends IResult {
+    methods: IJsonRpcMethod[];
+  }
+
+  export interface ILogResult extends IResult {
+    log: string;
+  }
+
   export interface IResult {
     result: boolean;
   }

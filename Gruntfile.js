@@ -7,8 +7,6 @@ module.exports = function (grunt) {
         config: 'config.rb'
       },
       src: {
-        deCarta: 'vendor/deCarta',
-        sass: 'public/sass',
         css: 'public/css',
         server: 'src/server',
         client: 'src/client',

@@ -1,0 +1,45 @@
+<ol class="breadcrumb">
+  <li><a data-ui-sref="config()">Method List</a></li>
+  <li class="active">{{ detail.item.name }}</li>
+</ol>
+
+<form role="form" data-ng-submit="detail.save()">
+  <h2>Method: {{ detail.item.name }}</h2>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" data-ng-model="detail.item.isError"> isError
+    </label>
+  </div>
+
+  <div data-ng-hide="detail.item.isError">
+    <h3>Success</h3>
+    <div class="form-group">
+      <label>result data</label>
+      <div ui-ace="{ mode: 'json', theme: 'chrome', onLoad: aceLoaded, onChange: aceChanged }" data-ng-model="detail.text"></div>
+    </div>
+  </div>
+
+  <div data-ng-show="detail.item.isError">
+    <h3>Error</h3>
+    <div class="form-group">
+      <label for="errorCode">code</label>
+      <input type="number" class="form-control" id="errorCode" placeholder="error code" data-ng-model="detail.item.error.code">
+    </div>
+    <div class="form-group">
+      <label for="errorMessage">message</label>
+      <input type="text" class="form-control" id="errorMessage" placeholder="error message" data-ng-model="detail.item.error.message">
+    </div>
+    <div class="form-group">
+      <label>data (optional)</label>
+      <div ui-ace="{ mode: 'json', theme: 'chrome', onLoad: aceLoaded, onChange: aceChanged }" data-ng-model="detail.errorData"></div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" data-ng-disable="detail.isErrorExists">Save</button>
+  <button type="button" class="btn btn-danger" data-ng-click="detail.delete()">Delete</button>
+  <span data-ng-show="detail.running">
+    <i class="fa fa-spin fa-spinner"></i>
+  </span>
+  <alert data-ng-repeat="alert in detail.alerts" type="{{ alert.type }}" close="detail.closeAlert($index)">{{ alert.msg }}</alert>
+</form>
+

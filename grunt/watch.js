@@ -14,10 +14,6 @@ module.exports = {
     files: [ '<%= src.client %>/**/*.tpl.html', '!**/*.d.ts', ],
     tasks: [ 'angular', 'uglify', 'copy:build' ]
   },
-  compass: {
-    files: [ '<%= src.sass %>/**/*.scss', ],
-    tasks: [ 'compass:min' ]
-  },
   tsc_test: {
     files: [ '<%= src.test %>', '!**/*.d.ts' ],
     tasks: [ 'typescript:test', 'env:test', 'mochacli' ]
