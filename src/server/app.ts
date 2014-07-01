@@ -106,12 +106,15 @@ export function setJsonRpcRoutes(app: express.Application): void {
   });
 }
 function convertToCallback(method: model.IJsonRpcMethod): Function {
+  var m = method;
   return (obj: any, callback: (err: any, res: any) => void): void => {
-    logger.debug(' rpc called: ' + method._id + ', params=' + JSON.stringify(obj));
-    if (method.isError) {
-      callback(method.error, null);
-    } else {
-      callback(null, method.result);
+    logger.debug(' rpc called: ' + m.name + ', params=' + JSON.stringify(obj));
+    if (callback) {
+      if (m.isError) {
+        callback(m.error, null);
+      } else {
+        callback(null, m.result);
+      }
     }
   };
 }
