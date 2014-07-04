@@ -51,7 +51,7 @@ export function setJsonRpcRoutes(app: express.Application): void {
   });
 
   var jsonRpcMiddlewareServer: any = new jsonrpc.server(new jsonrpc.transports.server.middleware(), scope);
-  app.post('/rpc', jsonRpcMiddlewareServer.transport.middleware);
+  app.post(config.server.apiEndpoint, jsonRpcMiddlewareServer.transport.middleware);
 
   app.get('/api/method', (req: express.Request, res: express.Response): void => {
     logger.info('getMethod');

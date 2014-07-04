@@ -20,6 +20,7 @@ module.exports = {
   },
   server: {
     listenPort: 3000,
+    apiEndpoint: '/v1/api',
     staticUrl: '/static',
     staticFolder: path.resolve(__dirname, '../public')
   }
