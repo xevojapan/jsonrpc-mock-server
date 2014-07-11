@@ -1,31 +1,31 @@
-# JSON-RPC API Mock Server
+# JSON-RPC Mock Server
 
-## Build
+## Build for MacOSX
 
 ### Prepare
 
     brew install node mongodb
-	npm install -g grunt-cli bower typescript
+    npm install -g grunt-cli bower typescript
 
 ### Compile
 
     npm install
-	bower install -f
-	grunt release
+    bower install
+    grunt release
 
 
 ## Usage
 
 ### API Configuration
 
-`/config` をBrowserで開くことで、APIを追加・変更・削除が可能
+open Browser to `/config`.
 
 ### API Call
 
-以下のEndpointに対して、設定した methodで requestを送ると設定した responseが返ってくる。
-JSON-RPCのrequestにある、params は無視される。
+The API endpoint depends to setting.
+The params attribute of JSON-RPC is ignored, but params must be necessity and Object. 
 
 #### API Endpoint
 
 * Method: 'POST'
-* Path: `config.server.apiEndpoint` の値（デフォルト： '/v1/api'）
+* Path: setting of `config.server.apiEndpoint` (default: '/v1/api')
